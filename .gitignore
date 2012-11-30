@@ -4,3 +4,13 @@
 *.jar
 *.war
 *.ear
+
+# Project files
+/nbproject/*
+*.xml
+*.mf
+/build/
+
+.classpath
+.project
+/dist/
