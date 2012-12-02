@@ -12,15 +12,18 @@ public class SchumacherStrategy implements FastCarStrategy{
         //Perform some moves.
         Random randomGenerator = new Random();
         int randomInt = randomGenerator.nextInt(3);
+        Orientations newOrientation = a.getOrientation();
 
         Directions drivingDirection;
 
         switch(randomInt){
             case 0:
                 drivingDirection = Directions.LEFTFORWARD;
+                newOrientation = newOrientation.turnLeft();
                 break;
             case 1:
                 drivingDirection = Directions.RIGHTFORWARD;
+                newOrientation = newOrientation.turnRight();
                 break;
             case 2:
                 drivingDirection = Directions.FORWARD;
@@ -31,6 +34,7 @@ public class SchumacherStrategy implements FastCarStrategy{
 
         try{
             track.moveTo(a, drivingDirection);
+            a.setOrientation(newOrientation);
         }catch(OutOfRacetrackException e){
             System.out.println("OutOfRacetrackException");
         }

@@ -17,6 +17,10 @@ public class MoveableCar extends Car{
         this(0, 0, startOrientation, carName);
     }
 
+    public void setStrategy(MoveableCarStrategy strategy){
+        this.strategy = strategy;
+    }
+
     @Override
     protected boolean canDriveTo(Directions direction){
         return (direction == Directions.LEFT ||
@@ -29,7 +33,7 @@ public class MoveableCar extends Car{
     @Override
     protected void drive() throws InterruptedException {
         this.strategy.performMove(this, currentRacetrack);
-        //System.out.println(currentRacetrack.debugString());
+        System.out.println(currentRacetrack.debugString());
         System.out.println(this.getScore());
     }
 
