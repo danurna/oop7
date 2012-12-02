@@ -145,7 +145,7 @@ class Racetrack {
         int nx = x + dx;
         int ny = y + dy;
 
-        if (ny >= ysize || nx >= xsize) {
+        if (ny >= ysize || nx >= xsize || ny < 0 || nx < 0) {
             throw new OutOfRacetrackException();
         }
 
