@@ -175,16 +175,7 @@ class Racetrack {
         }
 
         if (a.getScore() >= maxScore || a.getSteps() >= maxSteps) {
-            // Ohne Synchronisierung von Game Over koennte es vorkommen, dass
-            // zwei Threads das Scoreboard ausgeben.
-            synchronized (gameOver) {
-                if (!gameOver) {
-                    gameOver = true;
-                    for (Car c : cars) {
-                        System.out.println(c + ": " + c.getScore());
-                    }
-                }
-            }
+            gameOver = true;
         }
 
         if (gameOver) {
