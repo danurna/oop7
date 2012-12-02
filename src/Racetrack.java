@@ -172,11 +172,11 @@ class Racetrack {
                     fromTile.removeCar();
                     a.setX(nx);
                     a.setY(ny);
+                    a.upSteps();
                 } else if (!gameOver) {
                     if (a.getOrientation() == toTile.getCar().getOrientation()
                             .getOpposite()) {
                         a.upScore();
-                        a.upSteps();
                     }
                 }
             }
