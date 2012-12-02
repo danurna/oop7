@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.Vector;
 
 /*
  * Repraesentiert die Autodrom Rennstrecke, die ein Rechteck bildet.
@@ -14,7 +14,7 @@ class Racetrack {
     private int xsize;
     private int ysize;
     
-    private ArrayList<Car> cars;
+    private Vector<Car> cars;
 
     public Racetrack(int xsize, int ysize, int maxScore, int maxSteps) {
         track = new Tile[xsize][ysize];
@@ -27,7 +27,7 @@ class Racetrack {
         this.maxSteps = maxSteps;
         this.xsize = xsize;
         this.ysize = ysize;
-        this.cars = new ArrayList<Car>();
+        this.cars = new Vector<Car>();
     }
 
     // NB: Gib Auto zurueck, ob sich auf x, y ein Auto befindet.
