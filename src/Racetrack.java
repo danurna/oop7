@@ -61,6 +61,10 @@ class Racetrack {
     // VB: a befindet sich auf Racetrack.
     // Bewege Auto a in Richtung d. Wenn sich auf Zieltile bereits ein Auto
     // befindet, fuehre etwaige Erhoehungen des Punktestandes von a aus.
+    // Wirft GameOverException, wenn das Spiel beendet wurde und keine
+    // weiteren Zuege zulaessig sind.
+    // Wirft eine OutOfRacetrackException, wenn das Auto versucht, die
+    // Strecke zu verlassen.
     public void moveTo(Car a, Directions d) throws GameOverException, OutOfRacetrackException {
 
         int x = a.getX();
@@ -169,16 +173,17 @@ class Racetrack {
             }
         }
 
-        if (gameOver) {
-            throw new GameOverException();
-        }
-
         if (a.getScore() >= maxScore || a.getSteps() >= maxSteps) {
             gameOver = true;
             for (Car c: cars) {
                 System.out.println(c + ": " + c.getScore());
             }
         }
+
+        if (gameOver) {
+            throw new GameOverException();
+        }
+
     }
 
     // Synchronized um den debug print in einem konsistenten
