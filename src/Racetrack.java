@@ -23,14 +23,21 @@ class Racetrack {
         this.ysize = ysize;
     }
 
+    // NB: Gib Auto zurueck, ob sich auf x, y ein Auto befindet.
     boolean isEmpty(int x, int y) {
         return track[x][y].isEmpty();
     }
 
+    // NB: Gib Auto zurueck, dass sich derzeit auf x, y befindet.
+    // Wenn sich auf x, y kein Auto befindet, gib 0 zurueck.
     public Car getCar(int x, int y) {
         return track[x][y].getCar();
     }
     
+    // VB: Auto befindet sich noch nicht auf Racetrack.
+    // NB: Auto befindet sich auf Racetrack auf der Position x, y wenn true
+    // zurueck gegeben wird, wenn false zurueckgegeben wird befand sich
+    // bereits ein Auto auf x, y und der Racetrack bleibt unveraendert.
     public boolean addCar(int x, int y, Car c) {
         synchronized (track[x][y]) {
             if (track[x][y].isEmpty()) {
@@ -49,7 +56,8 @@ class Racetrack {
         int y = a.getY();
 
         int dx, dy;
-
+        
+        // dx, dy unter Annahme, dass Auto nach Osten schaut.
         switch (d) {
         case LEFTFORWARD:
             dx = 1;
@@ -88,6 +96,9 @@ class Racetrack {
         }
 
         int tmp;
+        
+        // Korrektur von dx, xy, sodass sie fuer die jeweilige Fahrtrichtung
+        // richtig sind.
         switch (a.getOrientation()) {
         case EAST:
             break;
@@ -114,7 +125,9 @@ class Racetrack {
             // Out of bounds;
             // FIXME
         }
-
+        
+        // Sperre zuerst das Tile, das weiter links oben ist, um Deadlocks
+        // zu verhindern.
         Tile lockfst;
         Tile locksnd;
 
@@ -154,6 +167,9 @@ class Racetrack {
         }
     }
 
+    // Synchronized um den debug print in einem konsistenten
+    // Zustand zu erhalten. Sonst koennte es dazu kommen, dass
+    // ein Auto doppelt angezeigt wird.
     public synchronized String debugString() {
         String ret = "";
         for (int y = 0; y < ysize; ++y) {
@@ -184,12 +200,12 @@ class Racetrack {
     
     public static void main(String[] args) throws GameOverException {
         Racetrack track = new Racetrack(10, 10, 10);
-        Car c1 = new FastCar(Orientations.WEST);
-        Car c2 = new FastCar(Orientations.SOUTH);
+        Car c1 = new FastCar(Orientations.SOUTH);
+        Car c2 = new FastCar(Orientations.NORTH);
         track.addCar(1, 1, c1);
         track.addCar(1, 2, c2);
         System.out.println(track.debugString());
-        track.moveTo(c1, Directions.RIGHTFORWARD);
+        track.moveTo(c1, Directions.FORWARD);
         System.out.println(track.debugString());
         System.out.println(c1.getScore());
     }
