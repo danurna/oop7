@@ -7,21 +7,25 @@ abstract class Car implements Runnable{
     private Orientations orientation;
     private int x;
     private int y;
+    private boolean running;
+    private String name;
     protected int milisecondsToWait;
     protected Racetrack currentRacetrack;
+    protected Thread t;
     
     private int steps = 0;
     private int score = 0;
 
-    public Car(int x, int y, Orientations startOrientation){
+    public Car(int x, int y, Orientations startOrientation, String carName){
         this.x = x;
         this.y = y;
         this.orientation = startOrientation;
-        milisecondsToWait = 0;
+        this.name = carName;
+        this.milisecondsToWait = 0;
     }
     
-    public Car(Orientations startOrientation){
-        this(0, 0, startOrientation);
+    public Car(Orientations startOrientation, String carName){
+        this(0, 0, startOrientation, carName);
     }
 
     public Orientations getOrientation(){
@@ -46,6 +50,8 @@ abstract class Car implements Runnable{
 
     public void setRacetrack(Racetrack rt) {
         this.currentRacetrack = rt;
+        this.t = new Thread(this);
+        t.start();
     }
 
     //Autos haben nur einen eingeschraenkten Aktionsradius, der hier ueberprueft wird.
@@ -74,16 +80,30 @@ abstract class Car implements Runnable{
         steps += 1;
     }
 
+    public void stop(){
+        t.interrupt();
+        t = null;
+    }
+
     @Override
     public void run() {
-        for(;;){
+        t = Thread.currentThread();
+        while( !Thread.interrupted() ){
             this.drive();
             try{
                Thread.sleep(milisecondsToWait);
             }catch(InterruptedException e){
-                e.printStackTrace();
+                break;
             }
-            
         }
+
+        System.out.println(name + " " + score);
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+
 }

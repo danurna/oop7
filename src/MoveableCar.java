@@ -5,34 +5,32 @@
 public class MoveableCar extends Car{
     MoveableCarStrategy strategy;
 
-    public MoveableCar(int x, int y, Orientations startOrientation){
-        super(x, y, startOrientation);
+    public MoveableCar(int x, int y, Orientations startOrientation, String carName){
+        super(x, y, startOrientation, carName);
         this.milisecondsToWait = 200;
         //Standardstrategie ist die dumme Fahrweise.
-        this.strategy = new DumpStrategy();
+        this.strategy = new DumbStrategy();
 
     }
 
-    public MoveableCar(Orientations startOrientation){
-        this(0, 0, startOrientation);
+    public MoveableCar(Orientations startOrientation, String carName){
+        this(0, 0, startOrientation, carName);
     }
 
     @Override
     protected boolean canDriveTo(Directions direction){
-        if(direction == Directions.LEFT ||
+        return (direction == Directions.LEFT ||
                 direction == Directions.LEFTFORWARD ||
                 direction == Directions.FORWARD ||
                 direction == Directions.RIGHTFORWARD ||
-                direction == Directions.RIGHT ){
-           return true;
-        }else{
-           return false;
-        }
+                direction == Directions.RIGHT );
     }
     
     @Override
     protected void drive(){
         this.strategy.performMove(this, currentRacetrack);
+        //System.out.println(currentRacetrack.debugString());
+        System.out.println(this.getScore());
     }
 
 
