@@ -145,7 +145,7 @@ class Racetrack {
         int nx = x + dx;
         int ny = y + dy;
 
-        if (ny >= ysize || nx >= xsize) {
+        if (ny >= ysize || nx >= xsize || ny < 0 || nx < 0) {
             throw new OutOfRacetrackException();
         }
 
@@ -227,13 +227,16 @@ class Racetrack {
 
     public static void main(String[] args) throws GameOverException,
             OutOfRacetrackException {
-        Racetrack track = new Racetrack(10, 10, 10, 40);
-        Car c1 = new FastCar(Orientations.SOUTH, "Car 1");
-        Car c2 = new FastCar(Orientations.NORTH, "Car 2");
-        Car c3 = new FastCar(Orientations.NORTH, "SCHUMI");
+        Racetrack track = new Racetrack(10, 10, 10, 5);
+        MoveableCar c1 = new MoveableCar(Orientations.SOUTH, "Car 1");
+        FastCar c2 = new FastCar(Orientations.NORTH, "Car 2");
+        FastCar c3 = new FastCar(Orientations.NORTH, "SCHUMI");
+        c1.setStrategy(new DumbStrategy());
+        c2.setStrategy(new SchumacherStrategy());
+        c3.setStrategy(new SchumacherStrategy());
         
-        track.addCar(1, 1, c1);
-        track.addCar(1, 2, c2);
+        track.addCar(5, 5, c1);
+        track.addCar(3, 3, c2);
         track.addCar(4, 5, c3);
 
         c1.startCar();

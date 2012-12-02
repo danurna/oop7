@@ -36,6 +36,10 @@ abstract class Car implements Runnable{
         this(0, 0, startOrientation, carName);
     }
 
+    public void setOrientation(Orientations orientation){
+        this.orientation = orientation;
+    }
+
     public Orientations getOrientation(){
         return this.orientation;
     }

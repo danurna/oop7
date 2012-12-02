@@ -16,6 +16,10 @@ public class FastCar extends Car{
         this(0, 0, startOrientation, carName);
     }
 
+    public void setStrategy(FastCarStrategy strategy){
+        this.strategy = strategy;
+    }
+
     @Override
     protected boolean canDriveTo(Directions direction){
         return (direction == Directions.LEFTFORWARD ||
@@ -29,7 +33,7 @@ public class FastCar extends Car{
     protected void drive() throws InterruptedException {
         this.strategy.performMove(this, currentRacetrack);
         
-        System.out.println(currentRacetrack.debugString());
+        //System.out.println(currentRacetrack.debugString());
         System.out.println(this.getScore());
     }
     
