@@ -9,19 +9,27 @@ abstract class Car implements Runnable{
     private int y;
     private boolean running;
     private String name;
-    protected int milisecondsToWait;
+    protected int millisecondsToWait;
     protected Racetrack currentRacetrack;
-    protected Thread t;
+    private Thread t;
     
     private int steps = 0;
     private int score = 0;
 
+    /**
+     * Initialisere ein Auto.
+     *
+     * @param x - Startposition
+     * @param y - Startposition
+     * @param startOrientation - Anfangsorientierung
+     * @param carName - Name des Autos
+     */
     public Car(int x, int y, Orientations startOrientation, String carName){
         this.x = x;
         this.y = y;
         this.orientation = startOrientation;
         this.name = carName;
-        this.milisecondsToWait = 0;
+        this.millisecondsToWait = 0;
     }
     
     public Car(Orientations startOrientation, String carName){
@@ -39,19 +47,23 @@ abstract class Car implements Runnable{
     public int getY(){
         return this.y;
     }
-    
+
+    //VB: x <= 0
     public void setX(int x) {
         this.x = x;
     }
-    
+
+    //VB: y <= 0
     public void setY(int y) {
         this.y = y;
     }
 
+    //VB: rt != null
     public void setRacetrack(Racetrack rt) {
         this.currentRacetrack = rt;
     }
 
+    //NB: Der Thread laeuft.
     public void startCar(){
         this.t = new Thread(this);
         t.start();
@@ -70,7 +82,8 @@ abstract class Car implements Runnable{
     public int getScore() {
         return score;
     }
-    
+
+    //Erhoeht den Score um eins.
     public void upScore() {
         score += 1;
     }
@@ -78,25 +91,27 @@ abstract class Car implements Runnable{
     public int getSteps() {
         return steps;
     }
-    
+
+    //Erhoeht die Schritte um eins.
     public void upSteps() {
         steps += 1;
     }
 
+    //NB: Es laeuft fuer eine Instanz kein Thread mehr.
     public void stop(){
-        t.interrupt();
-        t = null;
+        if(t != null){
+            t.interrupt();
+            t = null;
+        }
     }
 
     @Override
     public void run() {
-        // t = Thread.currentThread();
+
         while( !Thread.interrupted() ){
             try {
                this.drive();
-            
-
-               Thread.sleep(milisecondsToWait);
+               Thread.sleep(millisecondsToWait);
             }catch(InterruptedException e){
                 break;
             }
@@ -105,6 +120,7 @@ abstract class Car implements Runnable{
         System.out.println(name + " " + score);
     }
 
+    
     @Override
     public String toString() {
         return name;

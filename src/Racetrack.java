@@ -230,11 +230,15 @@ class Racetrack {
         Racetrack track = new Racetrack(10, 10, 10, 40);
         Car c1 = new FastCar(Orientations.SOUTH, "Car 1");
         Car c2 = new FastCar(Orientations.NORTH, "Car 2");
+        Car c3 = new FastCar(Orientations.NORTH, "SCHUMI");
         
         track.addCar(1, 1, c1);
         track.addCar(1, 2, c2);
+        track.addCar(4, 5, c3);
+
         c1.startCar();
         c2.startCar();
+        c3.startCar();
         
         track.startGame();
         
