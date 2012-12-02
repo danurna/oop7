@@ -12,16 +12,20 @@ public class DumpStrategy implements FastCarStrategy, MoveableCarStrategy{
         int y = oldY = a.getY();
 
         if(a.getOrientation() == Orientations.NORTH){
-            y = y - 2;
+            y = y - 1;
         }else if(a.getOrientation() == Orientations.EAST){
-            x = x + 2;
+            x = x + 1;
         }else if(a.getOrientation() == Orientations.SOUTH){
-            y = y + 2;
+            y = y + 1;
         }else if(a.getOrientation() == Orientations.WEST){
-            x = x - 2;
+            x = x - 1;
         }
-        
+        try{
+            track.moveTo(a, drivingDirection);
+        }catch(GameOverException e){
 
+        }
+        /*
         try{
             if(track.isEmpty(x, y)){
                 
@@ -29,6 +33,8 @@ public class DumpStrategy implements FastCarStrategy, MoveableCarStrategy{
         }catch(NullPointerException e){
             
         }
+        * *
+        */
 
 
     }

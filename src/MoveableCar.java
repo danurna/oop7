@@ -7,12 +7,14 @@ public class MoveableCar extends Car{
 
     public MoveableCar(int x, int y, Orientations startOrientation){
         super(x, y, startOrientation);
+        this.milisecondsToWait = 200;
+        //Standardstrategie ist die dumme Fahrweise.
+        this.strategy = new DumpStrategy();
 
     }
 
-    //Autos haben nur einen eingeschraenkten Aktionsradius, der hier ueberprueft wird.
-    private boolean canDriveTo(int direction){
-        return false;
+    public MoveableCar(Orientations startOrientation){
+        this(0, 0, startOrientation);
     }
 
     @Override
@@ -30,7 +32,9 @@ public class MoveableCar extends Car{
     
     @Override
     protected void drive(){
-
+        this.strategy.performMove(this, currentRacetrack);
     }
-    
+
+
+
 }
