@@ -66,8 +66,7 @@ class Racetrack {
     // weiteren Zuege zulaessig sind.
     // Wirft eine OutOfRacetrackException, wenn das Auto versucht, die
     // Strecke zu verlassen.
-    public void moveTo(Car a, Directions d) throws GameOverException,
-            OutOfRacetrackException {
+    public void moveTo(Car a, Directions d) throws OutOfRacetrackException {
 
         int x = a.getX();
         int y = a.getY();
@@ -177,12 +176,10 @@ class Racetrack {
 
         if (a.getScore() >= maxScore || a.getSteps() >= maxSteps) {
             gameOver = true;
+            for (Car c: cars) {
+                c.stop();
+            }
         }
-
-        if (gameOver) {
-            throw new GameOverException();
-        }
-
     }
 
     // Synchronized um den debug print in einem konsistenten
@@ -221,10 +218,14 @@ class Racetrack {
         Racetrack track = new Racetrack(10, 10, 10, 40);
         Car c1 = new FastCar(Orientations.SOUTH, "Car 1");
         Car c2 = new FastCar(Orientations.NORTH, "Car 2");
+        
         track.addCar(1, 1, c1);
         track.addCar(1, 2, c2);
+        c1.startCar();
+        c2.startCar();
+        
         System.out.println(track.debugString());
-        track.moveTo(c1, Directions.FORWARD);
+        // track.moveTo(c1, Directions.FORWARD);
         System.out.println(track.debugString());
         System.out.println(c1.getScore());
     }

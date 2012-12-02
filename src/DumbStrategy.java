@@ -23,8 +23,6 @@ public class DumbStrategy implements FastCarStrategy, MoveableCarStrategy{
         
         try{
             track.moveTo(a, drivingDirection);
-        }catch(GameOverException e){
-            a.stop();
         }catch(OutOfRacetrackException e){
             System.out.println("OutOfRacetrackException");
         }
