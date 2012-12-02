@@ -5,13 +5,19 @@ import java.util.Random;
  * Michael Schumacher ist schon etwas aelter und verwirrt. Er repraesentiert
  * unsere Random Strategie.
  */
-public class SchumacherStrategy implements FastCarStrategy{
+public class SchumacherStrategy implements MoveableCarStrategy{
+    private Random randomGenerator;
+
+    public SchumacherStrategy() {
+        this.randomGenerator = new Random(1337);
+    }
+
+
 
     @Override
     public void performMove(Car a, Racetrack track) throws InterruptedException{
         //Perform some moves.
-        Random randomGenerator = new Random();
-        int randomInt = randomGenerator.nextInt(3);
+        int randomInt = randomGenerator.nextInt(5);
         Orientations newOrientation = a.getOrientation();
 
         Directions drivingDirection;
@@ -26,6 +32,14 @@ public class SchumacherStrategy implements FastCarStrategy{
                 newOrientation = newOrientation.turnRight();
                 break;
             case 2:
+                drivingDirection = Directions.LEFT;
+                newOrientation = newOrientation.turnLeft();
+                break;
+            case 3:
+                drivingDirection = Directions.RIGHT;
+                newOrientation = newOrientation.turnRight();
+                break;
+            case 4:
                 drivingDirection = Directions.FORWARD;
                 break;
             default:
@@ -36,7 +50,7 @@ public class SchumacherStrategy implements FastCarStrategy{
             track.moveTo(a, drivingDirection);
             a.setOrientation(newOrientation);
         }catch(OutOfRacetrackException e){
-            System.out.println("OutOfRacetrackException");
+            //System.out.println("OutOfRacetrackException");
         }
     }
 

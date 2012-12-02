@@ -4,7 +4,7 @@ import java.util.Random;
 /*
  * Fahre immer im Kreis.
  */
-public class CircleStrategy implements FastCarStrategy, MoveableCarStrategy{
+public class CircleStrategy implements FastCarStrategy{
     Directions oldDrivingDirection;
     Boolean circleClockwise;
 

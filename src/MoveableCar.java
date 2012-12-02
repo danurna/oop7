@@ -7,7 +7,7 @@ public class MoveableCar extends Car{
 
     public MoveableCar(int x, int y, Orientations startOrientation, String carName){
         super(x, y, startOrientation, carName);
-        this.millisecondsToWait = 200;
+        this.millisecondsToWait = 60;
         //Standardstrategie ist die dumme Fahrweise.
         this.strategy = new DumbStrategy();
 
@@ -34,7 +34,7 @@ public class MoveableCar extends Car{
     protected void drive() throws InterruptedException {
         this.strategy.performMove(this, currentRacetrack);
         System.out.println(currentRacetrack.debugString());
-        System.out.println(this.getScore());
+        //System.out.println(this.getScore());
     }
 
 
