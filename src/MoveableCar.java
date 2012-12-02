@@ -1,13 +1,13 @@
 /**
  * Beweglicheres Auto.
- * Invariante: Ist langsamer als FastCar
+ * Invariante: Ist langsamer als FastCar.
  */
 public class MoveableCar extends Car{
     MoveableCarStrategy strategy;
 
     public MoveableCar(int x, int y, Orientations startOrientation, String carName){
         super(x, y, startOrientation, carName);
-        this.milisecondsToWait = 200;
+        this.millisecondsToWait = 200;
         //Standardstrategie ist die dumme Fahrweise.
         this.strategy = new DumbStrategy();
 

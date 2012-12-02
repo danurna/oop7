@@ -26,18 +26,7 @@ public class DumbStrategy implements FastCarStrategy, MoveableCarStrategy{
         }catch(OutOfRacetrackException e){
             System.out.println("OutOfRacetrackException");
         }
-        /*
-        try{
-            if(track.isEmpty(x, y)){
-                
-            }
-        }catch(NullPointerException e){
-            
-        }
-        * *
-        */
-
-
+       
     }
 
 }
