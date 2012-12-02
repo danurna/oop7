@@ -1,7 +1,7 @@
 /*
  * Fahre solange gerade aus bis das Auto gerade noch wenden kann. 
  */
-public class DumpStrategy implements FastCarStrategy, MoveableCarStrategy{
+public class DumbStrategy implements FastCarStrategy, MoveableCarStrategy{
     
     @Override
     public void performMove(Car a, Racetrack track){
@@ -20,10 +20,13 @@ public class DumpStrategy implements FastCarStrategy, MoveableCarStrategy{
         }else if(a.getOrientation() == Orientations.WEST){
             x = x - 1;
         }
+        
         try{
             track.moveTo(a, drivingDirection);
         }catch(GameOverException e){
-
+            a.stop();
+        }catch(OutOfRacetrackException e){
+            System.out.println("OutOfRacetrackException");
         }
         /*
         try{
