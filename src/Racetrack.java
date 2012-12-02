@@ -36,6 +36,10 @@ class Racetrack {
     void startGame() {
         this.startLock.countDown();
     }
+    
+    public boolean inRange(int x, int y) {
+        return !(y >= ysize || x >= xsize || y < 0 || x < 0);
+    }
 
     // NB: Gib Auto zurueck, ob sich auf x, y ein Auto befindet.
     boolean isEmpty(int x, int y) {
@@ -145,7 +149,7 @@ class Racetrack {
         int nx = x + dx;
         int ny = y + dy;
 
-        if (ny >= ysize || nx >= xsize || ny < 0 || nx < 0) {
+        if (!inRange(nx, ny)) {
             throw new OutOfRacetrackException();
         }
 
