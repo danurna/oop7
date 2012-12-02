@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /*
  * Repraesentiert die Autodrom Rennstrecke, die ein Rechteck bildet.
  */
@@ -7,11 +9,14 @@ class Racetrack {
     private Tile[][] track;
     private boolean gameOver = false;
     private int maxScore;
+    private int maxSteps;
 
     private int xsize;
     private int ysize;
+    
+    private ArrayList<Car> cars;
 
-    public Racetrack(int xsize, int ysize, int maxScore) {
+    public Racetrack(int xsize, int ysize, int maxScore, int maxSteps) {
         track = new Tile[xsize][ysize];
         for (int x = 0; x < xsize; ++x) {
             for (int y = 0; y < ysize; ++y) {
@@ -19,8 +24,10 @@ class Racetrack {
             }
         }
         this.maxScore = maxScore;
+        this.maxSteps = maxSteps;
         this.xsize = xsize;
         this.ysize = ysize;
+        this.cars = new ArrayList<Car>();
     }
 
     // NB: Gib Auto zurueck, ob sich auf x, y ein Auto befindet.
@@ -44,6 +51,7 @@ class Racetrack {
                 track[x][y].setCar(c);
                 c.setX(x);
                 c.setY(y);
+                cars.add(c);
                 return true;
             }
             return false;
@@ -155,6 +163,7 @@ class Racetrack {
                     if (a.getOrientation() == toTile.getCar().getOrientation()
                             .getOpposite()) {
                         a.upScore();
+                        a.upSteps();
                     }
                 }
             }
@@ -164,8 +173,11 @@ class Racetrack {
             throw new GameOverException();
         }
 
-        if (a.getScore() >= maxScore) {
+        if (a.getScore() >= maxScore || a.getSteps() >= maxSteps) {
             gameOver = true;
+            for (Car c: cars) {
+                System.out.println(c + ": " + c.getScore());
+            }
         }
     }
 
@@ -201,7 +213,7 @@ class Racetrack {
     }
     
     public static void main(String[] args) throws GameOverException, OutOfRacetrackException {
-        Racetrack track = new Racetrack(10, 10, 10);
+        Racetrack track = new Racetrack(10, 10, 10, 1);
         Car c1 = new FastCar(Orientations.SOUTH);
         Car c2 = new FastCar(Orientations.NORTH);
         track.addCar(1, 1, c1);

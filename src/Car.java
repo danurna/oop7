@@ -8,6 +8,7 @@ abstract class Car {
     private int x;
     private int y;
     
+    private int steps = 0;
     private int score = 0;
 
     public Car(int x, int y, Orientations startOrientation){
@@ -58,6 +59,12 @@ abstract class Car {
         score += 1;
     }
     
-
+    public int getSteps() {
+        return steps;
+    }
+    
+    public void upSteps() {
+        steps += 1;
+    }
 
 }
