@@ -8,6 +8,11 @@ public class FastCar extends Car{
     public FastCar(int x, int y, Orientations startOrientation){
         super(x, y, startOrientation);
     }
+    
+    public FastCar(Orientations startOrientation){
+        super(startOrientation);
+    }
+
 
     @Override
     protected boolean canDriveTo(Directions direction){
