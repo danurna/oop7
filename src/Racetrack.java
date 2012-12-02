@@ -50,6 +50,9 @@ class Racetrack {
         }
     }
 
+    // VB: a befindet sich auf Racetrack.
+    // Bewege Auto a in Richtung d. Wenn sich auf Zieltile bereits ein Auto
+    // befindet, fuehre etwaige Erhoehungen des Punktestandes von a aus.
     public void moveTo(Car a, Directions d) throws GameOverException {
 
         int x = a.getX();
