@@ -50,6 +50,9 @@ abstract class Car implements Runnable{
 
     public void setRacetrack(Racetrack rt) {
         this.currentRacetrack = rt;
+    }
+
+    public void startCar(){
         this.t = new Thread(this);
         t.start();
     }
@@ -90,6 +93,7 @@ abstract class Car implements Runnable{
         t = Thread.currentThread();
         while( !Thread.interrupted() ){
             this.drive();
+            
             try{
                Thread.sleep(milisecondsToWait);
             }catch(InterruptedException e){
