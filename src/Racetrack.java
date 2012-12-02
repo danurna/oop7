@@ -53,7 +53,7 @@ class Racetrack {
     // VB: a befindet sich auf Racetrack.
     // Bewege Auto a in Richtung d. Wenn sich auf Zieltile bereits ein Auto
     // befindet, fuehre etwaige Erhoehungen des Punktestandes von a aus.
-    public void moveTo(Car a, Directions d) throws GameOverException {
+    public void moveTo(Car a, Directions d) throws GameOverException, OutOfRacetrackException {
 
         int x = a.getX();
         int y = a.getY();
@@ -125,8 +125,7 @@ class Racetrack {
         int ny = y + dy;
 
         if (ny >= ysize || nx >= xsize) {
-            // Out of bounds;
-            // FIXME
+            throw new OutOfRacetrackException();
         }
         
         // Sperre zuerst das Tile, das weiter links oben ist, um Deadlocks
@@ -137,7 +136,7 @@ class Racetrack {
         Tile fromTile = track[x][y];
         Tile toTile = track[nx][ny];
 
-        if (nx + ny * track.length < x + y * track.length) {
+        if (nx + ny * ysize < x + y * ysize) {
             lockfst = track[nx][ny];
             locksnd = track[x][y];
         } else {
@@ -201,7 +200,7 @@ class Racetrack {
         return ret;
     }
     
-    public static void main(String[] args) throws GameOverException {
+    public static void main(String[] args) throws GameOverException, OutOfRacetrackException {
         Racetrack track = new Racetrack(10, 10, 10);
         Car c1 = new FastCar(Orientations.SOUTH);
         Car c2 = new FastCar(Orientations.NORTH);
