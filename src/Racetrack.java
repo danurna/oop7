@@ -198,17 +198,16 @@ class Racetrack {
         }
     }
 
-    // Synchronized um den debug print in einem konsistenten
-    // Zustand zu erhalten. Sonst koennte es dazu kommen, dass
-    // ein Auto doppelt angezeigt wird.
-    public synchronized String debugString() {
+    // Only approximate for fast cars.
+    public String debugString() {
         String ret = "";
         for (int y = 0; y < ysize; ++y) {
             for (int x = 0; x < xsize; ++x) {
-                if (track[x][y].isEmpty()) {
+                Car c = track[x][y].getCar();
+                if (c == null) {
                     ret += '.';
                 } else {
-                    switch (track[x][y].getCar().getOrientation()) {
+                    switch (c.getOrientation()) {
                     case NORTH:
                         ret += '^';
                         break;
