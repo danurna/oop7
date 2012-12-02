@@ -27,7 +27,7 @@ public class MoveableCar extends Car{
     }
     
     @Override
-    protected void drive(){
+    protected void drive() throws InterruptedException {
         this.strategy.performMove(this, currentRacetrack);
         //System.out.println(currentRacetrack.debugString());
         System.out.println(this.getScore());

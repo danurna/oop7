@@ -63,7 +63,7 @@ abstract class Car implements Runnable{
     }
 
     //Wird vom Thread aufgerufen.
-    protected void drive(){
+    protected void drive() throws InterruptedException {
 
     }
     
@@ -90,11 +90,12 @@ abstract class Car implements Runnable{
 
     @Override
     public void run() {
-        t = Thread.currentThread();
+        // t = Thread.currentThread();
         while( !Thread.interrupted() ){
-            this.drive();
+            try {
+               this.drive();
             
-            try{
+
                Thread.sleep(milisecondsToWait);
             }catch(InterruptedException e){
                 break;

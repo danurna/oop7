@@ -4,7 +4,7 @@
 public class DumbStrategy implements FastCarStrategy, MoveableCarStrategy{
     
     @Override
-    public void performMove(Car a, Racetrack track){
+    public void performMove(Car a, Racetrack track) throws InterruptedException{
         //Perform some moves.
         Directions drivingDirection = Directions.FORWARD;
         int oldX, oldY;

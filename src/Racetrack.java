@@ -1,10 +1,12 @@
 import java.util.Vector;
+import java.util.concurrent.CountDownLatch;
 
 /*
  * Repraesentiert die Autodrom Rennstrecke, die ein Rechteck bildet.
  */
 
 class Racetrack {
+    private CountDownLatch startLock;
 
     private Tile[][] track;
     private Boolean gameOver = false;
@@ -28,6 +30,11 @@ class Racetrack {
         this.xsize = xsize;
         this.ysize = ysize;
         this.cars = new Vector<Car>();
+        this.startLock = new CountDownLatch(1);
+    }
+    
+    void startGame() {
+        this.startLock.countDown();
     }
 
     // NB: Gib Auto zurueck, ob sich auf x, y ein Auto befindet.
@@ -66,8 +73,9 @@ class Racetrack {
     // weiteren Zuege zulaessig sind.
     // Wirft eine OutOfRacetrackException, wenn das Auto versucht, die
     // Strecke zu verlassen.
-    public void moveTo(Car a, Directions d) throws OutOfRacetrackException {
-
+    public void moveTo(Car a, Directions d) throws OutOfRacetrackException, InterruptedException {
+        this.startLock.await();
+        
         int x = a.getX();
         int y = a.getY();
 
@@ -175,9 +183,13 @@ class Racetrack {
         }
 
         if (a.getScore() >= maxScore || a.getSteps() >= maxSteps) {
-            gameOver = true;
-            for (Car c: cars) {
-                c.stop();
+            synchronized(gameOver) {
+                if (!gameOver) {
+                    gameOver = true;
+                    for (Car c: cars) {
+                        c.stop();
+                    }
+                }
             }
         }
     }
@@ -223,6 +235,8 @@ class Racetrack {
         track.addCar(1, 2, c2);
         c1.startCar();
         c2.startCar();
+        
+        track.startGame();
         
         System.out.println(track.debugString());
         // track.moveTo(c1, Directions.FORWARD);

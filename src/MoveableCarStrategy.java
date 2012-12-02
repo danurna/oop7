@@ -8,5 +8,5 @@ public interface MoveableCarStrategy {
      * Setzt Interaktionen zum Ueberpruefen des naechsten Schritts und
      * fuehrt diesen ggf auch aus.
      */
-    public void performMove(Car a, Racetrack track);
+    public void performMove(Car a, Racetrack track) throws InterruptedException;
 }
