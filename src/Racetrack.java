@@ -7,13 +7,13 @@ import java.util.Vector;
 class Racetrack {
 
     private Tile[][] track;
-    private boolean gameOver = false;
+    private Boolean gameOver = false;
     private int maxScore;
     private int maxSteps;
 
     private int xsize;
     private int ysize;
-    
+
     private Vector<Car> cars;
 
     public Racetrack(int xsize, int ysize, int maxScore, int maxSteps) {
@@ -40,7 +40,7 @@ class Racetrack {
     public Car getCar(int x, int y) {
         return track[x][y].getCar();
     }
-    
+
     // VB: Auto befindet sich noch nicht auf Racetrack.
     // NB: Auto befindet sich auf Racetrack auf der Position x, y wenn true
     // zurueck gegeben wird, wenn false zurueckgegeben wird befand sich
@@ -65,13 +65,14 @@ class Racetrack {
     // weiteren Zuege zulaessig sind.
     // Wirft eine OutOfRacetrackException, wenn das Auto versucht, die
     // Strecke zu verlassen.
-    public void moveTo(Car a, Directions d) throws GameOverException, OutOfRacetrackException {
+    public void moveTo(Car a, Directions d) throws GameOverException,
+            OutOfRacetrackException {
 
         int x = a.getX();
         int y = a.getY();
 
         int dx, dy;
-        
+
         // dx, dy unter Annahme, dass Auto nach Osten schaut.
         switch (d) {
         case LEFTFORWARD:
@@ -111,7 +112,7 @@ class Racetrack {
         }
 
         int tmp;
-        
+
         // Korrektur von dx, xy, sodass sie fuer die jeweilige Fahrtrichtung
         // richtig sind.
         switch (a.getOrientation()) {
@@ -139,7 +140,7 @@ class Racetrack {
         if (ny >= ysize || nx >= xsize) {
             throw new OutOfRacetrackException();
         }
-        
+
         // Sperre zuerst das Tile, das weiter links oben ist, um Deadlocks
         // zu verhindern.
         Tile lockfst;
@@ -174,9 +175,13 @@ class Racetrack {
         }
 
         if (a.getScore() >= maxScore || a.getSteps() >= maxSteps) {
-            gameOver = true;
-            for (Car c: cars) {
-                System.out.println(c + ": " + c.getScore());
+            synchronized (gameOver) {
+                if (!gameOver) {
+                    gameOver = true;
+                    for (Car c : cars) {
+                        System.out.println(c + ": " + c.getScore());
+                    }
+                }
             }
         }
 
@@ -216,8 +221,9 @@ class Racetrack {
         }
         return ret;
     }
-    
-    public static void main(String[] args) throws GameOverException, OutOfRacetrackException {
+
+    public static void main(String[] args) throws GameOverException,
+            OutOfRacetrackException {
         Racetrack track = new Racetrack(10, 10, 10, 1);
         Car c1 = new FastCar(Orientations.SOUTH);
         Car c2 = new FastCar(Orientations.NORTH);
