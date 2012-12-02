@@ -49,6 +49,7 @@ class Racetrack {
         synchronized (track[x][y]) {
             if (track[x][y].isEmpty()) {
                 track[x][y].setCar(c);
+                c.setRacetrack(this);
                 c.setX(x);
                 c.setY(y);
                 cars.add(c);
@@ -217,9 +218,9 @@ class Racetrack {
 
     public static void main(String[] args) throws GameOverException,
             OutOfRacetrackException {
-        Racetrack track = new Racetrack(10, 10, 10, 1);
-        Car c1 = new FastCar(Orientations.SOUTH);
-        Car c2 = new FastCar(Orientations.NORTH);
+        Racetrack track = new Racetrack(10, 10, 10, 40);
+        Car c1 = new FastCar(Orientations.SOUTH, "Car 1");
+        Car c2 = new FastCar(Orientations.NORTH, "Car 2");
         track.addCar(1, 1, c1);
         track.addCar(1, 2, c2);
         System.out.println(track.debugString());
