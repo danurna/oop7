@@ -2,11 +2,13 @@
  * Repraesentiert ein Auto.
  * 
  */
-abstract class Car {
+abstract class Car implements Runnable{
     //Repraesentiert einer der vier Himmelsrichtungen, in die das Auto zeigen kann.
     private Orientations orientation;
     private int x;
     private int y;
+    protected int milisecondsToWait;
+    protected Racetrack currentRacetrack;
     
     private int score = 0;
 
@@ -14,6 +16,7 @@ abstract class Car {
         this.x = x;
         this.y = y;
         this.orientation = startOrientation;
+        milisecondsToWait = 0;
     }
     
     public Car(Orientations startOrientation){
@@ -40,6 +43,10 @@ abstract class Car {
         this.y = y;
     }
 
+    public void setRacetrack(Racetrack rt) {
+        this.currentRacetrack = rt;
+    }
+
     //Autos haben nur einen eingeschraenkten Aktionsradius, der hier ueberprueft wird.
     protected boolean canDriveTo(Directions direction){
         return false;
@@ -57,7 +64,19 @@ abstract class Car {
     public void upScore() {
         score += 1;
     }
-    
+
+    @Override
+    public void run() {
+        for(;;){
+            this.drive();
+            try{
+               Thread.sleep(milisecondsToWait);
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }
+            
+        }
+    }
 
 
 }
