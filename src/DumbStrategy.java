@@ -1,5 +1,6 @@
 /*
- * Fahre solange gerade aus bis das Auto gerade noch wenden kann. 
+ * Strategie: Fahre solange gerade bis eine Wand kommt. An dieser Wand drehe
+ * nach links und fahre wieder gerade und so weiter.
  */
 public class DumbStrategy implements FastCarStrategy, MoveableCarStrategy{
     Boolean wallAhead;
@@ -8,11 +9,11 @@ public class DumbStrategy implements FastCarStrategy, MoveableCarStrategy{
         this.wallAhead = false;
     }
 
-
-    
+    /**
+     * VB: Car a muss sich auf dem Racetrack a befinden.
+     */
     @Override
     public void performMove(Car a, Racetrack track) throws InterruptedException{
-        //Perform some moves.
         Directions drivingDirection = Directions.FORWARD;
         Orientations newOrientation = a.getOrientation();
 

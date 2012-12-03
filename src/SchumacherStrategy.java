@@ -12,8 +12,9 @@ public class SchumacherStrategy implements MoveableCarStrategy{
         this.randomGenerator = new Random(1337);
     }
 
-
-
+    /**
+     * VB: Car a muss sich auf dem Racetrack a befinden.
+     */
     @Override
     public void performMove(Car a, Racetrack track) throws InterruptedException{
         //Perform some moves.

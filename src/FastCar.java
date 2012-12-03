@@ -16,6 +16,7 @@ public class FastCar extends Car{
         this(0, 0, startOrientation, carName);
     }
 
+    // strategy != null
     public void setStrategy(FastCarStrategy strategy){
         this.strategy = strategy;
     }
@@ -29,12 +30,10 @@ public class FastCar extends Car{
     }
 
 
+    //VB: this.strategy != null, currentRacetrack != null
     @Override
     protected void drive() throws InterruptedException {
         this.strategy.performMove(this, currentRacetrack);
-        
-        //System.out.println(currentRacetrack.debugString());
-        //System.out.println(this.getScore());
     }
     
 }

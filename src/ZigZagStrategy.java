@@ -11,7 +11,10 @@ public class ZigZagStrategy implements FastCarStrategy{
     public ZigZagStrategy(){
         this.oldDrivingDirection = Directions.LEFTFORWARD;
     }
-    
+
+    /**
+     * VB: Car a muss sich auf dem Racetrack a befinden.
+     */
     @Override
     public void performMove(Car a, Racetrack track) throws InterruptedException{
         //Perform some moves.
@@ -64,8 +67,6 @@ public class ZigZagStrategy implements FastCarStrategy{
         int dy = 0;
         int tmp = 0;
 
-        //System.out.println("drivingDirection " + drivingDirection + " orientationAfterStep: " + orientationAfterStep);
-
         //Berechnung mit Annahme, dass Orientation EAST ist.
         switch(drivingDirection){
             case FORWARD:
@@ -82,7 +83,6 @@ public class ZigZagStrategy implements FastCarStrategy{
             default:
                 throw new RuntimeException("Unreachable");
         }
-        //System.out.println("#1 dx " + dx + " dy: " + dy);
 
         //An die echte Orientation des Autos anpassen.
         switch (a.getOrientation()) {
@@ -103,7 +103,6 @@ public class ZigZagStrategy implements FastCarStrategy{
                 dy = tmp;
                 break;
         }
-        //System.out.println("#2 dx " + dx + " dy: " + dy);
 
         //Einen Forward Step simulieren
         switch (orientationAfterStep) {
@@ -124,8 +123,6 @@ public class ZigZagStrategy implements FastCarStrategy{
         x = x + dx;
         y = y + dy;
 
-        //System.out.println("#3 dx " + dx + " dy: " + dy);
-        
         return !track.inRange(x, y);
     }
 

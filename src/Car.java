@@ -36,6 +36,9 @@ abstract class Car implements Runnable{
         this(0, 0, startOrientation, carName);
     }
 
+
+    //VB: setOrientation darf nur ausgefuehrt werden, wenn vorher eine passende
+    //Beweung stattgefunden hat. 
     public void setOrientation(Orientations orientation){
         this.orientation = orientation;
     }
@@ -74,11 +77,12 @@ abstract class Car implements Runnable{
     }
 
     //Autos haben nur einen eingeschraenkten Aktionsradius, der hier ueberprueft wird.
+    //Unterklassen liefern passenden boolean zurueck.
     protected boolean canDriveTo(Directions direction){
         return false;
     }
 
-    //Wird vom Thread aufgerufen.
+    //Wird vom Thread aufgerufen. Implementierung in Unterklassen.
     protected void drive() throws InterruptedException {
 
     }
@@ -109,6 +113,13 @@ abstract class Car implements Runnable{
         }
     }
 
+
+
+    /**
+     * Thread Methode, die unterbrochen werden kann. Ruft drive Methode auf.
+     * Am Ende der Methode wird der Name und Score ausgegeben, da das
+     * Rennen zu Ende ist.
+     */
     @Override
     public void run() {
 

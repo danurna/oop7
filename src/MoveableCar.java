@@ -17,6 +17,7 @@ public class MoveableCar extends Car{
         this(0, 0, startOrientation, carName);
     }
 
+    //VB: strategy != null
     public void setStrategy(MoveableCarStrategy strategy){
         this.strategy = strategy;
     }
@@ -29,12 +30,11 @@ public class MoveableCar extends Car{
                 direction == Directions.RIGHTFORWARD ||
                 direction == Directions.RIGHT );
     }
-    
+
+    //VB: this.strategy != null, currentRacetrack != null
     @Override
     protected void drive() throws InterruptedException {
         this.strategy.performMove(this, currentRacetrack);
-        //System.out.println(currentRacetrack.debugString());
-        //System.out.println(this.getScore());
     }
 
 

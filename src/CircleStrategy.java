@@ -12,7 +12,10 @@ public class CircleStrategy implements FastCarStrategy{
         this.oldDrivingDirection = Directions.FORWARD;
         this.circleClockwise = new Random().nextBoolean();
     }
-    
+
+    /**
+     * VB: Car a muss sich auf dem Racetrack a befinden.
+     */
     @Override
     public void performMove(Car a, Racetrack track) throws InterruptedException{
         //Perform some moves.
@@ -36,7 +39,7 @@ public class CircleStrategy implements FastCarStrategy{
             track.moveTo(a, drivingDirection);
             a.setOrientation(newOrientation);
         }catch(OutOfRacetrackException e){
-            //System.out.println("OutOfRacetrackException");
+            
         }
     }
 
