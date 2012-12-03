@@ -33,6 +33,8 @@ class Racetrack {
         this.startLock = new CountDownLatch(1);
     }
     
+    // VB: Spiel noch nicht gestartet.
+    // NB: Autos koennen Zuege ausfuehren
     void startGame() {
         this.startLock.countDown();
     }
