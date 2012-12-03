@@ -3,7 +3,7 @@
  * nach links und fahre wieder gerade und so weiter.
  */
 public class DumbStrategy implements FastCarStrategy, MoveableCarStrategy{
-    Boolean wallAhead;
+    private Boolean wallAhead;
 
     public DumbStrategy() {
         this.wallAhead = false;

@@ -7,7 +7,6 @@ abstract class Car implements Runnable{
     private Orientations orientation;
     private int x;
     private int y;
-    private boolean running;
     private String name;
     protected int millisecondsToWait;
     protected Racetrack currentRacetrack;
@@ -138,7 +137,7 @@ abstract class Car implements Runnable{
             }
         }
 
-        System.out.println(name + " " + score);
+        System.out.println("Auto \'"+name + "\' Punkte=" + score);
     }
 
     

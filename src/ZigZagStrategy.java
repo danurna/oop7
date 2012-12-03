@@ -5,7 +5,7 @@
  * moeglichst immer weiter fahren kann.
  */
 public class ZigZagStrategy implements FastCarStrategy{
-    Directions oldDrivingDirection;
+    private Directions oldDrivingDirection;
 
     public ZigZagStrategy(){
         this.oldDrivingDirection = Directions.LEFTFORWARD;

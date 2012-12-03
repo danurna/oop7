@@ -3,7 +3,7 @@
  * Invariante: Ist schneller als MoveableCar
  */
 public class FastCar extends Car{
-    FastCarStrategy strategy;
+    private FastCarStrategy strategy;
 
     public FastCar(int x, int y, Orientations startOrientation, String carName){
         super(x, y, startOrientation, carName);
