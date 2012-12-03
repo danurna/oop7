@@ -37,6 +37,8 @@ class Racetrack {
         this.startLock.countDown();
     }
     
+    // NB: true, wenn x, y valide Koordinaten auf der Strecke sind,
+    // false sonst.
     public boolean inRange(int x, int y) {
         return !(y >= ysize || x >= xsize || y < 0 || x < 0);
     }
