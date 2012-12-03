@@ -36,7 +36,7 @@ public class CircleStrategy implements FastCarStrategy{
             track.moveTo(a, drivingDirection);
             a.setOrientation(newOrientation);
         }catch(OutOfRacetrackException e){
-            System.out.println("OutOfRacetrackException");
+            //System.out.println("OutOfRacetrackException");
         }
     }
 

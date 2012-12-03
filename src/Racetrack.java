@@ -230,23 +230,31 @@ class Racetrack {
 
     public static void main(String[] args) throws GameOverException,
             OutOfRacetrackException {
-        Racetrack track = new Racetrack(10, 10, 10, 200);
+        Racetrack track = new Racetrack(10, 10, 10, 150);
         MoveableCar c1 = new MoveableCar(Orientations.SOUTH, "Car 1");
-        MoveableCar c2 = new MoveableCar(Orientations.NORTH, "Car 2");
+        MoveableCar c2 = new MoveableCar(Orientations.NORTH, "MIKA HAEKKINEN");
         FastCar c3 = new FastCar(Orientations.NORTH, "SCHUMI");
+        FastCar c4 = new FastCar(Orientations.EAST, "VETTEL");
+        MoveableCar c5 = new MoveableCar(Orientations.WEST, "ALONSO");
 
 
         c1.setStrategy(new DumbStrategy());
         c2.setStrategy(new SchumacherStrategy());
-        c3.setStrategy(new CircleStrategy());
+        c3.setStrategy(new ZigZagStrategy());
+        c4.setStrategy(new CircleStrategy());
+        c5.setStrategy(new SchumacherStrategy());
         
         track.addCar(5, 5, c1);
         track.addCar(3, 3, c2);
-        track.addCar(4, 5, c3);
+        track.addCar(9, 9, c3);
+        track.addCar(1, 3, c4);
+        track.addCar(4, 7, c5);
 
         c1.startCar();
         c2.startCar();
         c3.startCar();
+        c4.startCar();
+        c5.startCar();
         
         track.startGame();
         

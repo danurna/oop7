@@ -17,12 +17,10 @@ public class SchumacherStrategy implements MoveableCarStrategy{
     @Override
     public void performMove(Car a, Racetrack track) throws InterruptedException{
         //Perform some moves.
-        int randomInt = randomGenerator.nextInt(5);
         Orientations newOrientation = a.getOrientation();
-
         Directions drivingDirection;
 
-        switch(randomInt){
+        switch(randomGenerator.nextInt(5)){
             case 0:
                 drivingDirection = Directions.LEFTFORWARD;
                 newOrientation = newOrientation.turnLeft();
@@ -43,14 +41,14 @@ public class SchumacherStrategy implements MoveableCarStrategy{
                 drivingDirection = Directions.FORWARD;
                 break;
             default:
-                drivingDirection = Directions.FORWARD;
+                throw new RuntimeException("Unreachable");
         }
 
         try{
             track.moveTo(a, drivingDirection);
             a.setOrientation(newOrientation);
         }catch(OutOfRacetrackException e){
-            //System.out.println("OutOfRacetrackException");
+            
         }
     }
 

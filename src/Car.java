@@ -17,7 +17,7 @@ abstract class Car implements Runnable{
     private int score = 0;
 
     /**
-     * Initialisere ein Auto.
+     * Initialisiere ein Auto.
      *
      * @param x - Startposition
      * @param y - Startposition

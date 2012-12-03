@@ -7,7 +7,7 @@ public class FastCar extends Car{
 
     public FastCar(int x, int y, Orientations startOrientation, String carName){
         super(x, y, startOrientation, carName);
-        this.millisecondsToWait = 30;
+        this.millisecondsToWait = 10;
         //Standardstrategie ist die dumme Fahrweise.
         this.strategy = new DumbStrategy();
     }
