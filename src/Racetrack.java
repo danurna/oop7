@@ -179,6 +179,7 @@ class Racetrack {
                     a.setY(ny);
                     a.upSteps();
                 } else if (!gameOver) {
+                    a.upScore();
                     if (a.getOrientation() == otherCar.getOrientation()
                             .getOpposite()) {
                         a.upScore();
