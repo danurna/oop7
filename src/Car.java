@@ -95,6 +95,11 @@ abstract class Car implements Runnable{
     public void upScore() {
         score += 1;
     }
+    
+    // Verringert den Score um eins.
+    public void downScore() {
+        score -= 1;
+    }
 
     public int getSteps() {
         return steps;

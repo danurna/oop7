@@ -33,10 +33,14 @@ class Racetrack {
         this.startLock = new CountDownLatch(1);
     }
     
+    // VB: Spiel noch nicht gestartet.
+    // NB: Autos koennen Zuege ausfuehren
     void startGame() {
         this.startLock.countDown();
     }
     
+    // NB: true, wenn x, y valide Koordinaten auf der Strecke sind,
+    // false sonst.
     public boolean inRange(int x, int y) {
         return !(y >= ysize || x >= xsize || y < 0 || x < 0);
     }
@@ -171,6 +175,7 @@ class Racetrack {
 
         synchronized (lockfst) {
             synchronized (locksnd) {
+                Car otherCar = toTile.getCar();
                 if (toTile.isEmpty() && !gameOver) {
                     toTile.setCar(a);
                     fromTile.removeCar();
@@ -178,15 +183,21 @@ class Racetrack {
                     a.setY(ny);
                     a.upSteps();
                 } else if (!gameOver) {
-                    if (a.getOrientation() == toTile.getCar().getOrientation()
+                    a.upScore();
+                    if (a.getOrientation() == otherCar.getOrientation()
                             .getOpposite()) {
                         a.upScore();
+                    } else {
+                        // Kollisionsgegner wird ein Punkt abgezogen, weil er
+                        // nicht von vorne getroffen wurde.
+                        otherCar.downScore();
                     }
                 }
             }
         }
 
         if (a.getScore() >= maxScore || a.getSteps() >= maxSteps) {
+            // Verhindere, dass zweimal stop aufgerufen wird.
             synchronized(gameOver) {
                 if (!gameOver) {
                     gameOver = true;
@@ -199,6 +210,7 @@ class Racetrack {
     }
 
     // Only approximate for fast cars.
+    // FIXME: VOR ABGABE LOESCHEN ODER FIXEN.
     public String debugString() {
         String ret = "";
         for (int y = 0; y < ysize; ++y) {
