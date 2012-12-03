@@ -1,5 +1,4 @@
 
-import java.util.Random;
 
 /*
  * Schnelles Auto, dass andauernd Richtung wechselt und so faehrt, dass es
@@ -13,7 +12,8 @@ public class ZigZagStrategy implements FastCarStrategy{
     }
 
     /**
-     * VB: Car a muss sich auf dem Racetrack a befinden.
+     * VB: Car a muss sich auf dem Racetrack track befinden.
+     * VB: Car muss FastCar sein
      */
     @Override
     public void performMove(Car a, Racetrack track) throws InterruptedException{

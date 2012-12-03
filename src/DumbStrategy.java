@@ -10,14 +10,15 @@ public class DumbStrategy implements FastCarStrategy, MoveableCarStrategy{
     }
 
     /**
-     * VB: Car a muss sich auf dem Racetrack a befinden.
+     * VB: Car a muss sich auf dem Racetrack track befinden.
+     * VB: Car mus Moveable oder FastCar sein
      */
     @Override
     public void performMove(Car a, Racetrack track) throws InterruptedException{
         Directions drivingDirection = Directions.FORWARD;
         Orientations newOrientation = a.getOrientation();
 
-        //FastCar hat in dieser Situation keine Ausweichmöglichkeit,
+        //FastCar hat in dieser Situation keine Ausweichmoeglichkeit,
         //MoveableCar aber schon. Es kann nach links fahren und dadurch
         //dem Stillstand entgehen.
         if(wallAhead && a.canDriveTo(Directions.LEFT)){

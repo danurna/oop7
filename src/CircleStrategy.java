@@ -15,6 +15,7 @@ public class CircleStrategy implements FastCarStrategy{
 
     /**
      * VB: Car a muss sich auf dem Racetrack a befinden.
+     * VB: Car muss FastCar sein
      */
     @Override
     public void performMove(Car a, Racetrack track) throws InterruptedException{

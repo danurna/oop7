@@ -6,6 +6,8 @@ public class Tile {
         return car;
     }
 
+    // VB kein Auto vorhanden
+    // NB Auto vorhanden
     public void setCar(Car car) {
         this.car = car;
     }

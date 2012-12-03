@@ -55,21 +55,23 @@ abstract class Car implements Runnable{
         return this.y;
     }
 
-    //VB: x <= 0
+    //VB: x >= 0
     public void setX(int x) {
         this.x = x;
     }
 
-    //VB: y <= 0
+    //VB: y >= 0
     public void setY(int y) {
         this.y = y;
     }
 
     //VB: rt != null
+    //VB: Das Rennen auf diesem Track darf noch nicht begonnen haben
     public void setRacetrack(Racetrack rt) {
         this.currentRacetrack = rt;
     }
 
+    //VB: Rennen hat begonnen
     //NB: Der Thread laeuft.
     public void startCar(){
         this.t = new Thread(this);
@@ -83,9 +85,7 @@ abstract class Car implements Runnable{
     }
 
     //Wird vom Thread aufgerufen. Implementierung in Unterklassen.
-    protected void drive() throws InterruptedException {
-
-    }
+    protected abstract void drive() throws InterruptedException; 
     
     public int getScore() {
         return score;
@@ -110,7 +110,7 @@ abstract class Car implements Runnable{
         steps += 1;
     }
 
-    //NB: Es laeuft fuer eine Instanz kein Thread mehr.
+    //NB: Es laeuft fuer diese Instanz kein Thread mehr.
     public void stop(){
         if(t != null){
             t.interrupt();
@@ -124,6 +124,7 @@ abstract class Car implements Runnable{
      * Thread Methode, die unterbrochen werden kann. Ruft drive Methode auf.
      * Am Ende der Methode wird der Name und Score ausgegeben, da das
      * Rennen zu Ende ist.
+     * 
      */
     @Override
     public void run() {

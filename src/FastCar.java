@@ -16,7 +16,7 @@ public class FastCar extends Car{
         this(0, 0, startOrientation, carName);
     }
 
-    // strategy != null
+    // VB: strategy != null
     public void setStrategy(FastCarStrategy strategy){
         this.strategy = strategy;
     }

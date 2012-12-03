@@ -13,7 +13,8 @@ public class SchumacherStrategy implements MoveableCarStrategy{
     }
 
     /**
-     * VB: Car a muss sich auf dem Racetrack a befinden.
+     * VB: Car a muss sich auf dem Racetrack track befinden.
+     * VB: Car muss Moveable Car sein
      */
     @Override
     public void performMove(Car a, Racetrack track) throws InterruptedException{
