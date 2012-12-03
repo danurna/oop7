@@ -171,6 +171,7 @@ class Racetrack {
 
         synchronized (lockfst) {
             synchronized (locksnd) {
+                Car otherCar = toTile.getCar();
                 if (toTile.isEmpty() && !gameOver) {
                     toTile.setCar(a);
                     fromTile.removeCar();
@@ -178,15 +179,20 @@ class Racetrack {
                     a.setY(ny);
                     a.upSteps();
                 } else if (!gameOver) {
-                    if (a.getOrientation() == toTile.getCar().getOrientation()
+                    if (a.getOrientation() == otherCar.getOrientation()
                             .getOpposite()) {
                         a.upScore();
+                    } else {
+                        // Kollisionsgegner wird ein Punkt abgezogen, weil er
+                        // nicht von vorne getroffen wurde.
+                        otherCar.downScore();
                     }
                 }
             }
         }
 
         if (a.getScore() >= maxScore || a.getSteps() >= maxSteps) {
+            // Verhindere, dass zweimal stop aufgerufen wird.
             synchronized(gameOver) {
                 if (!gameOver) {
                     gameOver = true;
@@ -199,6 +205,7 @@ class Racetrack {
     }
 
     // Only approximate for fast cars.
+    // FIXME: VOR ABGABE LOESCHEN ODER FIXEN.
     public String debugString() {
         String ret = "";
         for (int y = 0; y < ysize; ++y) {
