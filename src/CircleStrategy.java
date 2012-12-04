@@ -20,16 +20,12 @@ public class CircleStrategy implements FastCarStrategy{
     @Override
     public void performMove(Car a, Racetrack track) throws InterruptedException{
         //Perform some moves.
-        Orientations newOrientation = a.getOrientation();
-
         Directions drivingDirection;
 
         if(circleClockwise){
             drivingDirection = Directions.RIGHTFORWARD;
-            newOrientation = newOrientation.turnRight();
         }else{
             drivingDirection = Directions.LEFTFORWARD;
-            newOrientation = newOrientation.turnLeft();
         }
 
         if(oldDrivingDirection == drivingDirection){
@@ -38,7 +34,6 @@ public class CircleStrategy implements FastCarStrategy{
 
         try{
             track.moveTo(a, drivingDirection);
-            a.setOrientation(newOrientation);
         }catch(OutOfRacetrackException e){
             
         }

@@ -18,7 +18,6 @@ public class ZigZagStrategy implements FastCarStrategy{
     @Override
     public void performMove(Car a, Racetrack track) throws InterruptedException{
         //Perform some moves.
-        Orientations newOrientation = a.getOrientation();
         Directions drivingDirection = oldDrivingDirection;
 
         if(oldDrivingDirection == Directions.LEFTFORWARD){
@@ -31,18 +30,11 @@ public class ZigZagStrategy implements FastCarStrategy{
             }
         }
 
-        if(drivingDirection == Directions.LEFTFORWARD){
-            newOrientation = newOrientation.turnLeft();
-        }else{
-            newOrientation = newOrientation.turnRight();
-        }
-
         //Speichere Direction fuer naechsten Aufruf.
         oldDrivingDirection = drivingDirection;
 
         try{
             track.moveTo(a, drivingDirection);
-            a.setOrientation(newOrientation);
         }catch(OutOfRacetrackException e){
             
         }

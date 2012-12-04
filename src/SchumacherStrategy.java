@@ -19,25 +19,20 @@ public class SchumacherStrategy implements MoveableCarStrategy{
     @Override
     public void performMove(Car a, Racetrack track) throws InterruptedException{
         //Perform some moves.
-        Orientations newOrientation = a.getOrientation();
         Directions drivingDirection;
 
         switch(randomGenerator.nextInt(5)){
             case 0:
                 drivingDirection = Directions.LEFTFORWARD;
-                newOrientation = newOrientation.turnLeft();
                 break;
             case 1:
                 drivingDirection = Directions.RIGHTFORWARD;
-                newOrientation = newOrientation.turnRight();
                 break;
             case 2:
                 drivingDirection = Directions.LEFT;
-                newOrientation = newOrientation.turnLeft();
                 break;
             case 3:
                 drivingDirection = Directions.RIGHT;
-                newOrientation = newOrientation.turnRight();
                 break;
             case 4:
                 drivingDirection = Directions.FORWARD;
@@ -48,7 +43,6 @@ public class SchumacherStrategy implements MoveableCarStrategy{
 
         try{
             track.moveTo(a, drivingDirection);
-            a.setOrientation(newOrientation);
         }catch(OutOfRacetrackException e){
             
         }

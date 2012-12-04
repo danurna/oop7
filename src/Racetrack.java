@@ -96,6 +96,10 @@ class Racetrack {
     public void moveTo(Car a, Directions d) throws OutOfRacetrackException, InterruptedException {
         this.startLock.await();
         
+        if (!a.canDriveTo(d)) {
+            return;
+        }
+        
         int x = a.getX();
         int y = a.getY();
 
@@ -194,6 +198,11 @@ class Racetrack {
                     a.setX(nx);
                     a.setY(ny);
                     a.upSteps();
+                    if (d == Directions.RIGHTFORWARD || d == Directions.RIGHT) {
+                        a.setOrientation(a.getOrientation().turnRight());
+                    } else if (d == Directions.LEFTFORWARD || d == Directions.LEFT) {
+                        a.setOrientation(a.getOrientation().turnLeft());
+                    }
                 } else if (!gameOver) {
                     a.upScore();
                     if (a.getOrientation() == otherCar.getOrientation()
