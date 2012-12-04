@@ -75,9 +75,6 @@ public class Test {
 
     	System.out.println("Spielfeld-Starte:");
     	System.out.println(a.debugString());
-    	
-
-    	System.out.println("Spielfeld-Zwischenstand:");
 
     	fast1.startCar();
     	fast2.startCar();
@@ -87,10 +84,8 @@ public class Test {
     	mov3.startCar();
     	mov4.startCar();
     	a.startGame();
-    	waiting(10);
-    	System.out.println(a.debugString());
     	System.out.println("Punkte-Endstand");
-    	waiting(1000);
+    	waiting(1010);
     	System.out.println();
     	System.out.println("Spielfeld-Endstand:");
     	System.out.println(a.debugString());
