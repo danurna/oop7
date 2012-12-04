@@ -29,13 +29,14 @@ public class Test {
     	FastCar fast1 = new FastCar(Orientations.EAST,"c1");
     	a.addCar(0, 0, fast1);
     	
-    	FastCar fast2 = new FastCar(Orientations.WEST,"c2");
-    	a.addCar(9, 0, fast2);
+    	MoveableCar mov1 = new MoveableCar(Orientations.WEST,"c2");
+    	mov1.setStrategy(new SchumacherStrategy());
+    	a.addCar(9, 0, mov1);
     	System.out.println(a.debugString());
     	
     	System.out.println("Ergebnisse:");
     	fast1.startCar();
-    	fast2.startCar();
+    	mov1.startCar();
     	a.startGame();
     	waiting(200);
     	System.out.println(a.debugString());
@@ -49,9 +50,9 @@ public class Test {
     	
     	// 6 autos:
     	fast1 = new FastCar(Orientations.SOUTH,"car1");
-    	fast2 = new FastCar(Orientations.WEST,"car2");
+    	FastCar fast2 = new FastCar(Orientations.WEST,"car2");
     	FastCar fast3 = new FastCar(Orientations.NORTH,"car3");
-    	MoveableCar mov1=new MoveableCar(Orientations.EAST,"car4");
+    	mov1=new MoveableCar(Orientations.EAST,"car4");
     	MoveableCar mov2=new MoveableCar(Orientations.WEST,"car5");
     	MoveableCar mov3=new MoveableCar(Orientations.NORTH,"car6");
     	MoveableCar mov4=new MoveableCar(Orientations.EAST,"car7");
