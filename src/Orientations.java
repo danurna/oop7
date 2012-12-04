@@ -4,6 +4,7 @@
 public enum Orientations {
     NORTH, EAST, SOUTH, WEST;
 
+    // NB: Retourniert entgegenegesetzte Richtung.
     public Orientations getOpposite() {
         switch (this) {
         case NORTH:
@@ -19,6 +20,7 @@ public enum Orientations {
         }
     }
 
+    // NB: Retourniert Richtung linksgedreht.
     public Orientations turnLeft() {
         switch (this) {
         case NORTH:
@@ -34,6 +36,7 @@ public enum Orientations {
         }
     }
 
+    // NB: NB: Retourniert Richtung rechtsgedreht.
     public Orientations turnRight() {
         switch (this) {
         case NORTH:
