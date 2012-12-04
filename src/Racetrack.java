@@ -209,8 +209,8 @@ class Racetrack {
         }
     }
 
-    // Only approximate for fast cars.
-    // FIXME: VOR ABGABE LOESCHEN ODER FIXEN.
+    // VB: Darf nicht nach startGame aufgerufen werden, es sei denn
+    // gameOver wurde gesetzt.
     public String debugString() {
         String ret = "";
         for (int y = 0; y < ysize; ++y) {
