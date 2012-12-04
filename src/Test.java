@@ -44,8 +44,9 @@ public class Test {
     	
     	
     	
-    	System.out.println("------------------------------------------");
+    	System.out.println("*******************************************************");
     	System.out.println("Testfall2 grosse strecke mit vielen autos:");
+    	System.out.println("Abbruch sollte nach erreichen von 10 Punkten erfolgen:");
     	a = new Racetrack(20,16,10,100);
     	
     	// 6 autos:
@@ -93,6 +94,27 @@ public class Test {
     	System.out.println();
     	System.out.println("Spielfeld-Endstand:");
     	System.out.println(a.debugString());
+    	
+    	System.out.println("*******************************************************");
+    	System.out.println("Testfall3 grosse strecke mit wenigen autos:");
+    	System.out.println("Abbruch sollte nach erreichen von 50 Moves erfolgen");
+    	System.out.println("da die maximalPunkte (100) davor nicht erreicht werden koennen:");
+    	a = new Racetrack(20,16,100,50);
+    	fast1=new FastCar(Orientations.WEST,"c1");
+    	fast1.setStrategy(new CircleStrategy());
+    	mov1 =new MoveableCar(Orientations.NORTH,"c2");
+    	a.addCar(10, 8, fast1);
+    	a.addCar(10, 9, mov1);
+    	System.out.println("Strecke vor Beginn:");
+    	System.out.println(a.debugString());
+    	System.out.println("Ergebnisse:");
+    	mov1.startCar();
+    	fast1.startCar();
+    	a.startGame();
+    	waiting(1000);
+    	System.out.println("Strecke nach Ende:");
+    	System.out.println(a.debugString());
+    	
     	
     }
 }
