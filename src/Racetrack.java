@@ -7,6 +7,7 @@ import java.util.concurrent.CountDownLatch;
 
 class Racetrack {
     private CountDownLatch startLock;
+    private CountDownLatch gameOverLock;
 
     private Tile[][] track;
     private Boolean gameOver = false;
@@ -31,6 +32,17 @@ class Racetrack {
         this.ysize = ysize;
         this.cars = new Vector<Car>();
         this.startLock = new CountDownLatch(1);
+        this.gameOverLock = new CountDownLatch(1);
+    }
+    
+    // NB: Spiel ist beendet.
+    public void join() throws InterruptedException {
+        // Warte, bis das Spiel beendet wurde.
+        gameOverLock.await();
+        // Warte, bis alle Autos terminiert haben.
+        for (Car c: cars) {
+            c.join();
+        }
     }
     
     // VB: Spiel noch nicht gestartet.
@@ -201,6 +213,7 @@ class Racetrack {
             synchronized(gameOver) {
                 if (!gameOver) {
                     gameOver = true;
+                    gameOverLock.countDown();
                     for (Car c: cars) {
                         c.stop();
                     }
@@ -210,7 +223,8 @@ class Racetrack {
     }
 
     // VB: Darf nicht nach startGame aufgerufen werden, es sei denn
-    // gameOver wurde gesetzt.
+    // gameOver wurde gesetzt. Die Beendigung des Spieles kann mit
+    // join sichergestellt werden.
     public String debugString() {
         String ret = "";
         for (int y = 0; y < ysize; ++y) {

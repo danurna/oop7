@@ -1,16 +1,5 @@
 
 public class Test {
-
-	/** Verzoegert ausfuerung um n millisec */
-	public static void waiting (int n){     
-        long t0, t1;
-        t0 =  System.currentTimeMillis();
-        do{
-            t1 = System.currentTimeMillis();
-        }
-        while ((t1 - t0) < (n ));
-    }
-	
     /**
      * Hier werden die Punkte aus der Angabe getestet und vorgestellt wie man mit 
      * den Klassen umgeht:
@@ -20,6 +9,8 @@ public class Test {
     	System.out.println("TESTFALL 1: FrontalCrash mit Dummy Strategie und FastCars");
     	System.out.println("Rennbahn eine reine gerad keine Chance zum Ausweichen, Umdrehen unmoeglich:");
     	// 10 laengeneinheiten x, 1 leinheit y, maxPunkte 1, maxMoves 10
+    	// Durch Frontalkollision (=2 Punkte) wird hier die Maximalpunkte
+    	// zahl ueberschritten
     	Racetrack a = new Racetrack(10,1,1,10);
     	System.out.println(a.debugString());
     	
@@ -38,10 +29,13 @@ public class Test {
     	fast1.startCar();
     	mov1.startCar();
     	a.startGame();
-    	waiting(200);
+    	try {
+    	    a.join();
+    	} catch (InterruptedException e) {
+    	    // Das Main-Thread sollte niemals unterbrochen werden.
+            assert (false);
+    	}
     	System.out.println(a.debugString());
-    	
-    	
     	
     	
     	System.out.println("*******************************************************");
@@ -84,8 +78,13 @@ public class Test {
     	mov3.startCar();
     	mov4.startCar();
     	a.startGame();
-    	System.out.println("Punkte-Endstand");
-    	waiting(1010);
+        System.out.println("Punkte-Endstand");
+        try {
+            a.join();
+        } catch (InterruptedException e) {
+            // Das Main-Thread sollte niemals unterbrochen werden.
+            assert (false);
+        }
     	System.out.println();
     	System.out.println("Spielfeld-Endstand:");
     	System.out.println(a.debugString());
@@ -106,7 +105,12 @@ public class Test {
     	mov1.startCar();
     	fast1.startCar();
     	a.startGame();
-    	waiting(1000);
+        try {
+            a.join();
+        } catch (InterruptedException e) {
+            // Das Main-Thread sollte niemals unterbrochen werden.
+            assert (false);
+        }
     	System.out.println("Strecke nach Ende:");
     	System.out.println(a.debugString());
     	

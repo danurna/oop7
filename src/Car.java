@@ -109,11 +109,10 @@ abstract class Car implements Runnable{
         steps += 1;
     }
 
-    //NB: Es laeuft fuer diese Instanz kein Thread mehr.
+    // NB: Thread wurde angewiesen, abzubrechen.
     public void stop(){
         if(t != null){
             t.interrupt();
-            t = null;
         }
     }
 
@@ -144,6 +143,11 @@ abstract class Car implements Runnable{
     @Override
     public String toString() {
         return name;
+    }
+    
+    // NB: Es laeuft fuer diese Instanz kein Thread mehr.
+    public void join() throws InterruptedException {
+        t.join();
     }
 
 
